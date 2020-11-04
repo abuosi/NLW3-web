@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-orphanages
+spec:
+  selector:
+    matchLabels:
+      app: web-orphanages
+  template: 
+    metadata:       
+      labels:
+        app: web-orphanages
+    spec:            
+      containers:
+      - name: web-orphanages
+        image: abuosi/web-orphanages:v1
+        ports:
+        - containerPort: 5000
+        imagePullPolicy: Always
