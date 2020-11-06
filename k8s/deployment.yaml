@@ -15,5 +15,13 @@ spec:
       - name: web-orphanages
         image: abuosi/web-orphanages:v1
         ports:
-        - containerPort: 5000
+        - containerPort: 3000
         imagePullPolicy: Always
+        volumeMounts:
+          - name:  happy-config
+            mountPath: /usr/share/nginx/html/config.js
+            subPath: config.js
+      volumes:
+        - name: happy-config
+          configMap:
+            name: happy-config

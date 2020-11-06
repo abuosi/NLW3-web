@@ -1,20 +1,11 @@
-FROM node:12
+FROM node:alpine as builder
+WORKDIR '/app'
+COPY ./package.json ./
+RUN yarn install
+COPY . .
+RUN yarn build
 
-# Create app directory
-WORKDIR /app
-
-# Install app dependencies
-#COPY package*.json ./
-
-#RUN yarn install
-
-RUN yarn add serve
-
-# If you are building your code for production
-# RUN npm ci --only=production
-
-# Bundle app source
-COPY ./build .
-
-EXPOSE 5000
-CMD [ "yarn", "serve" ]
+FROM nginx
+EXPOSE 3000
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /app/build /usr/share/nginx/html

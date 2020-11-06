@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: happy-config
+data:
+    config.js: |
+        window.API_URL='YOUR_API_URL'
+        window.MAPBOX_TOKEN='YOUR_MAPBOX_TOKEN'
+    
